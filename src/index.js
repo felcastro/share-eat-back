@@ -7,7 +7,7 @@ const platesRoute = require('./api/plates_controller');
 
 app.use(cors());
 
-app.listen(3001, () => console.log('Running on port 3001'));
+app.use(express.json());
 
 app.get('/', (req, res, next) => {
     res.json({'status': 'Ok'});
@@ -19,3 +19,5 @@ app.use('/api/plates', platesRoute);
 app.use((req, res) => {
     res.status(404);
 })
+
+app.listen(3001, () => console.log('Running on port 3001'));

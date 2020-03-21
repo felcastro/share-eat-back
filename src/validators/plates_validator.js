@@ -10,4 +10,4 @@ const plateValidator = (data) => {
     return schema.validate(data);
 }
 
-module.exports = plateValidator;
+module.exports.plateValidator = plateValidator;
