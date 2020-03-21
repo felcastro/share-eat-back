@@ -53,4 +53,39 @@ router.post('/', async (req, res) => {
     });
 });
 
+router.delete('/:id', async (req, res) => {
+    const sql = 'DELETE FROM plates WHERE id = ?';
+    const params = [req.params.id];
+    db.run(sql, params, (err, row) => {
+        if (err) {
+            res.status(400).send({
+                'error': err.message
+            });
+        }
+        res.send(row);
+    });
+});
+
+router.put('/:id', async (req, res) => {
+    const {
+        error
+    } = plateValidator(req.body);
+    if (error) return res.status(400).send({
+        error: error.details[0]
+    });
+
+    const plate = Plate(req.body);
+
+    const sql = 'UPDATE plates SET name = ?, price = ?, description = ? WHERE id = ?';
+    const params = [plate.name, plate.price, plate.description, req.params.id];
+    db.run(sql, params, (err, result) => {
+        if (err) {
+            res.status(400).send({
+                'error': err.message
+            });
+        }
+        res.send(plate);
+    });
+});
+
 module.exports = router;
