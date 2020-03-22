@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     db.all(sql, [], (err, rows) => {
         if (err) {
             res.status(400).send({
-                'error': err.message
+                error: err.message
             });
         }
         res.send(rows);
@@ -26,14 +26,14 @@ router.get('/:id', async (req, res) => {
     db.get(placeSql, params, (err, row) => {
         if (err) {
             res.status(400).send({
-                'error': err.message
+                error: err.message
             });
         }
         var place = row;
         db.all(platesSql, params, (err, row) => {
             if (err) {
                 res.status(400).send({
-                    'error': err.message
+                    error: err.message
                 });
             }
             place.plates = row;

@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).send({
-                'error': err.message
+                error: err.message
             });
         }
         res.send(rows);
@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
     db.get(sql, params, (err, row) => {
         if (err) {
             res.status(400).send({
-                'error': err.message
+                error: err.message
             });
         }
         res.send(row);
@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
     db.run(sql, params, (err, result) => {
         if (err) {
             res.status(400).send({
-                'error': err.message
+                error: err.message
             });
         }
         res.send(plate);
@@ -59,7 +59,7 @@ router.delete('/:id', async (req, res) => {
     db.run(sql, params, (err, row) => {
         if (err) {
             res.status(400).send({
-                'error': err.message
+                error: err.message
             });
         }
         res.send(row);
@@ -75,13 +75,13 @@ router.put('/:id', async (req, res) => {
     });
 
     const plate = Plate(req.body);
-
+    console.log(plate.price)
     const sql = 'UPDATE plates SET name = ?, price = ?, description = ? WHERE id = ?';
     const params = [plate.name, plate.price, plate.description, req.params.id];
     db.run(sql, params, (err, result) => {
         if (err) {
             res.status(400).send({
-                'error': err.message
+                error: err.message
             });
         }
         res.send(plate);
