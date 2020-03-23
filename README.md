@@ -1,5 +1,6 @@
 ## Teste 4all
 
+### `npm install`
 ### `npm start`
 
 Executa o projeto em modo de desenvolvimento com o nodemon, na porta :3001.<br />
