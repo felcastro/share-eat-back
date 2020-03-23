@@ -29,16 +29,22 @@ router.get('/:id', async (req, res) => {
                 error: err.message
             });
         }
-        var place = row;
-        db.all(platesSql, params, (err, row) => {
-            if (err) {
-                res.status(400).send({
-                    error: err.message
-                });
-            }
-            place.plates = row;
-            res.send(place);
-        });
+        if (row) {
+            var place = row;
+            db.all(platesSql, params, (err, row) => {
+                if (err) {
+                    res.status(400).send({
+                        error: err.message
+                    });
+                }
+                place.plates = row;
+                res.send(place);
+            });
+        } else {
+            res.status(404).send({
+                error: 'Local não encontrado'
+            });
+        }
     });
 });
 

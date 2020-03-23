@@ -27,7 +27,14 @@ router.get('/:id', async (req, res) => {
                 error: err.message
             });
         }
-        res.send(row);
+        if (row) {
+            res.send(row);
+        } else {
+            res.status(404).send({
+                error: 'Prato não encontrado'
+            });
+        }
+        
     });
 });
 
@@ -75,16 +82,21 @@ router.put('/:id', async (req, res) => {
     });
 
     const plate = Plate(req.body);
-    console.log(plate.price)
     const sql = 'UPDATE plates SET name = ?, price = ?, description = ? WHERE id = ?';
     const params = [plate.name, plate.price, plate.description, req.params.id];
-    db.run(sql, params, (err, result) => {
+    db.run(sql, params, function(err) {
         if (err) {
             res.status(400).send({
                 error: err.message
             });
         }
-        res.send(plate);
+        if (this.changes > 0) {
+            res.send(plate);
+        } else {
+            res.status(400).send({
+                error: 'Nenhuma atualização realizada'
+            });
+        }
     });
 });
 
